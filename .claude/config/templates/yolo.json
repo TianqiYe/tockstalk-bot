@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "DISABLE_TELEMETRY": "1",
+    "DISABLE_ERROR_REPORTING": "1",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "0"
+  },
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash",
+      "LS",
+      "Read",
+      "Agent",
+      "Write",
+      "Edit",
+      "MultiEdit",
+      "Glob",
+      "Grep",
+      "WebFetch",
+      "WebSearch",
+      "TodoWrite",
+      "NotebookRead",
+      "NotebookEdit",
+      "Task"
+    ],
+    "deny": [
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf /)",
+      "Bash(rm -rf /bin*)",
+      "Bash(rm -rf /boot*)",
+      "Bash(rm -rf /dev*)",
+      "Bash(rm -rf /etc*)",
+      "Bash(rm -rf /lib*)",
+      "Bash(rm -rf /proc*)",
+      "Bash(rm -rf /root*)",
+      "Bash(rm -rf /sbin*)",
+      "Bash(rm -rf /sys*)",
+      "Bash(rm -rf /usr*)",
+      "Bash(rm -rf /var*)",
+      "Bash(rm -rf ~/*)",
+      "Bash(rm -rf $HOME*)",
+      "Bash(dd if=/dev/zero*)",
+      "Bash(dd if=/dev/urandom*)",
+      "Bash(shred*)",
+      "Bash(wipe*)",
+      "Bash(shutdown*)",
+      "Bash(reboot*)",
+      "Bash(halt*)",
+      "Bash(poweroff*)",
+      "Bash(init 0*)",
+      "Bash(init 6*)",
+      "Bash(systemctl reboot*)",
+      "Bash(systemctl poweroff*)",
+      "Bash(systemctl halt*)",
+      "Bash(systemctl mask*)",
+      "Bash(systemctl unmask*)",
+      "Bash(mkfs*)",
+      "Bash(fdisk*)",
+      "Bash(parted*)",
+      "Bash(cfdisk*)",
+      "Bash(sfdisk*)",
+      "Bash(mkswap*)",
+      "Bash(swapoff -a*)",
+      "Bash(umount /*)",
+      "Bash(mount * /*)",
+      "Bash(useradd*)",
+      "Bash(userdel*)",
+      "Bash(usermod*)",
+      "Bash(passwd*)",
+      "Bash(chpasswd*)",
+      "Bash(su -*)",
+      "Bash(sudo su*)",
+      "Bash(visudo*)",
+      "Bash(crontab -e*)",
+      "Bash(at *)",
+      "Bash(iptables -F*)",
+      "Bash(iptables -X*)",
+      "Bash(iptables -Z*)",
+      "Bash(iptables -P*)",
+      "Bash(iptables -D*)",
+      "Bash(ip route del*)",
+      "Bash(ip route flush*)",
+      "Bash(curl * | sudo*)",
+      "Bash(wget * | sudo*)",
+      "Bash(curl * | sh*)",
+      "Bash(wget * | sh*)",
+      "Bash(curl * | bash*)",
+      "Bash(wget * | bash*)",
+      "Bash(sudo rm -rf /*)",
+      "Bash(sudo rm -rf /)",
+      "Bash(sudo rm -rf /bin*)",
+      "Bash(sudo rm -rf /boot*)",
+      "Bash(sudo rm -rf /etc*)",
+      "Bash(sudo rm -rf /lib*)",
+      "Bash(sudo rm -rf /proc*)",
+      "Bash(sudo rm -rf /root*)",
+      "Bash(sudo rm -rf /sbin*)",
+      "Bash(sudo rm -rf /sys*)",
+      "Bash(sudo rm -rf /usr*)",
+      "Bash(sudo rm -rf /var*)",
+      "Bash(sudo dd if=/dev/zero*)",
+      "Bash(sudo dd if=/dev/urandom*)",
+      "Bash(sudo mkfs*)",
+      "Bash(sudo fdisk*)",
+      "Bash(sudo parted*)",
+      "Bash(sudo shutdown*)",
+      "Bash(sudo reboot*)",
+      "Bash(sudo halt*)",
+      "Bash(sudo poweroff*)",
+      "Bash(sudo rpi-update --unsafe*)",
+      "Bash(sudo rpi-eeprom-update --force*)",
+      "Bash(sudo usermod -d /*)",
+      "Bash(sudo usermod --home /*)",
+      "Bash(kill -9 1*)",
+      "Bash(killall -9 systemd*)",
+      "Bash(killall -9 init*)",
+      "Bash(pkill -9 systemd*)",
+      "Bash(pkill -9 init*)",
+      "Bash(modprobe*)",
+      "Bash(insmod*)",
+      "Bash(rmmod*)",
+      "Bash(depmod*)",
+      "Bash(> /etc/*)",
+      "Bash(> /boot/*)",
+      "Bash(> /sys/*)",
+      "Bash(> /proc/*)",
+      "Bash(> /dev/*)",
+      "Bash(echo * > /etc/*)",
+      "Bash(echo * > /boot/*)",
+      "Bash(echo * > /sys/*)",
+      "Bash(echo * > /proc/*)",
+      "Bash(apt remove --purge systemd*)",
+      "Bash(apt remove --purge libc*)",
+      "Bash(apt remove --purge kernel*)",
+      "Bash(apt autoremove --purge*)",
+      "Bash(dpkg --remove --force*)",
+      "Bash(:(){ :|:& };:*)",
+      "Bash(dd if=/dev/zero of=/dev/sd*)",
+      "Bash(yes*)",
+      "Bash(cat /dev/zero*)"
+    ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import sys; sys.path.append('/opt/distiller-cm5-sdk/src'); from distiller_cm5_sdk.hardware.sam import LED; led = LED(use_sudo=True); led.set_color_all(255, 255, 0); led.set_brightness_all(200)\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import sys; sys.path.append('/opt/distiller-cm5-sdk/src'); from distiller_cm5_sdk.hardware.sam import LED; led = LED(use_sudo=True); led.set_color_all(0, 100, 255); led.set_brightness_all(200)\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import sys; sys.path.append('/opt/distiller-cm5-sdk/src'); from distiller_cm5_sdk.hardware.sam import LED; led = LED(use_sudo=True); led.set_color_all(0, 255, 0); led.set_brightness_all(200); import time; time.sleep(0.5); led.turn_off_all()\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "DISABLE_TELEMETRY": "1",
+    "DISABLE_ERROR_REPORTING": "1",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "0"
+  },
+  "includeCoAuthoredBy": false,
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import sys; sys.path.append('/opt/distiller-cm5-sdk/src'); from distiller_cm5_sdk.hardware.sam import LED; led = LED(use_sudo=True); led.set_color_all(255, 255, 0); led.set_brightness_all(200)\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import sys; sys.path.append('/opt/distiller-cm5-sdk/src'); from distiller_cm5_sdk.hardware.sam import LED; led = LED(use_sudo=True); led.set_color_all(0, 100, 255); led.set_brightness_all(200)\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import sys; sys.path.append('/opt/distiller-cm5-sdk/src'); from distiller_cm5_sdk.hardware.sam import LED; led = LED(use_sudo=True); led.set_color_all(0, 255, 0); led.set_brightness_all(200); import time; time.sleep(0.5); led.turn_off_all()\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}
