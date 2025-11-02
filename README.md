@@ -1,6 +1,6 @@
 # Tockstalk Bot
 
-Automated reservation monitoring bot for Tock restaurants, running on Raspberry Pi CM5. Uses Playwright with stealth mode to bypass Cloudflare protection, monitors availability in real-time, and books reservations automatically when desired time slots become available.
+Automated reservation monitoring bot for Tock restaurants, running on Distiller (pamir.ai). Uses Playwright with stealth mode to bypass Cloudflare protection, monitors availability in real-time, and books reservations automatically when desired time slots become available.
 
 ## Features
 
