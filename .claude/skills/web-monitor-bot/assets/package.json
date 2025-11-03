@@ -1,0 +1,16 @@
+{
+  "name": "web-monitor-bot",
+  "version": "1.0.0",
+  "description": "Web monitoring bot with analytics",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "dashboard": "node analytics-server.js"
+  },
+  "dependencies": {
+    "@slack/webhook": "^7.0.6",
+    "playwright": "^1.56.0",
+    "express": "^4.18.2",
+    "dotenv": "^16.0.0"
+  }
+}
